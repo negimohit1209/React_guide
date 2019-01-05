@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
-import './App.css';
+import styles from './App.module.css';
 
 
 class App extends Component {
@@ -47,14 +47,9 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    };
     let persons = null;
+    let btnClass = '';
+
     if(this.state.showPerson) {
       persons = (
         <div>
@@ -69,23 +64,23 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor = "red";
+      btnClass = styles.Red;
     }
 
     let classes = [];
     if(this.state.persons.length <= 2){
-      classes.push("red");
+      classes.push( styles.red );
     }
     if(this.state.persons.length <= 1){
-      classes.push('bold');
+      classes.push( styles.bold );
     }
     return (
       
-      <div className="App">
+      <div className={styles.App}>
       <h1>Hi i m react app.</h1>
       <p className={classes.join(" ")}>hey there i m using watsapp.</p>
       <button 
-      style= {style}
+      className = {btnClass}
       onClick={this.togglePersonHandler}>Toggle Person</button>
         {persons}
     </div>
