@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Person from './Person/Person';
+import Persons from '../components/Presons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 import styles from './App.module.css';
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary"
 
 class App extends Component {
   state = {
@@ -48,41 +48,20 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let btnClass = '';
 
     if(this.state.showPerson) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return <ErrorBoundary key={person.id}>
-            <Person
-            name={person.name} 
-            age={person.age}
-            click = {() => this.deletePersonHandler(index)}
-            
-            changed={(event) => this.nameChange(event , person.id)}
-            /></ErrorBoundary>
-          })}
+          <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChange}/>
         </div>
       );
-      btnClass = styles.Red;
     }
 
-    let classes = [];
-    if(this.state.persons.length <= 2){
-      classes.push( styles.red );
-    }
-    if(this.state.persons.length <= 1){
-      classes.push( styles.bold );
-    }
+
     return (
       
       <div className={styles.App}>
-      <h1>Hi i m react app.</h1>
-      <p className={classes.join(" ")}>hey there i m using watsapp.</p>
-      <button 
-      className = {btnClass}
-      onClick={this.togglePersonHandler}>Toggle Person</button>
+      <Cockpit persons={this.state.persons} toggle={this.togglePersonHandler} showPerson={this.state.showPerson}/>
         {persons}
     </div>
   
